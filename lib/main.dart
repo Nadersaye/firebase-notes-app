@@ -49,7 +49,7 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
           ? const LoginView()
           : const HomePage(),
       routes: {
-        "signup": (context) => const SignUp(),
+        "signup": (context) => const RegisterView(),
         "login": (context) => const LoginView(),
         "homepage": (context) => const HomePage(),
         "otpscreen": (context) => OtpScreen(

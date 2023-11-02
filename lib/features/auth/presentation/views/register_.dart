@@ -6,14 +6,14 @@ import 'widgets/custom_button_auth.dart';
 import 'widgets/custom_logo_auth.dart';
 import 'widgets/custom_textformfield.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _RegisterViewState extends State<RegisterView> {
   TextEditingController username = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
