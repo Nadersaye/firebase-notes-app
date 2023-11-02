@@ -91,23 +91,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               }),
           Container(height: 20),
 
-          MaterialButton(
-              height: 40,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              color: Colors.red[700],
-              textColor: Colors.white,
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Login With Google  "),
-                  Image.asset(
-                    "assets/images/mainlogo.png",
-                    width: 20,
-                  )
-                ],
-              )),
+          const CustomAuthButton(),
           Container(height: 20),
           // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,)
           const CustomAnotherOptionText()
@@ -127,63 +111,73 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           debugPrint('No user found for that email.');
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.rightSlide,
-            headerAnimationLoop: false,
-            title: 'Error',
-            desc: 'No user found for that email.',
-            btnOkOnPress: () {},
-            btnOkIcon: Icons.cancel,
-            btnOkColor: Colors.red,
-          ).show();
+          customAwesomeDialog(
+              titleText: 'Error',
+              context: context,
+              contentText: 'No user found for that email.',
+              color: Colors.red);
         } else if (e.code == 'wrong-password') {
           debugPrint('Wrong password provided for that user.');
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.info,
-            borderSide: const BorderSide(
-              color: Colors.green,
-              width: 2,
-            ),
-            width: 280,
-            buttonsBorderRadius: const BorderRadius.all(
-              Radius.circular(2),
-            ),
-            dismissOnTouchOutside: true,
-            dismissOnBackKeyPress: false,
-            onDismissCallback: (type) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Dismissed by $type'),
-                ),
-              );
-            },
-            headerAnimationLoop: false,
-            animType: AnimType.bottomSlide,
-            title: 'Wrong password',
-            desc: 'Wrong password provided for that user.',
-            showCloseIcon: true,
-            btnCancelOnPress: () {},
-            btnOkOnPress: () {},
-          ).show();
+          customAwesomeDialog(
+              context: context,
+              titleText: 'Wrong password',
+              contentText: 'Wrong password provided for that user.',
+              color: Colors.red);
         } else {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.rightSlide,
-            headerAnimationLoop: false,
-            title: 'Error',
-            desc: '$e',
-            btnOkOnPress: () {},
-            btnOkIcon: Icons.cancel,
-            btnOkColor: Colors.red,
-          ).show();
+          customAwesomeDialog(
+              context: context,
+              titleText: 'Error',
+              contentText: '$e',
+              color: Colors.red);
         }
       }
     } else {
       autovalidateMode = AutovalidateMode.always;
     }
+  }
+
+  void customAwesomeDialog({
+    required BuildContext context,
+    required String titleText,
+    required String contentText,
+    required Color color,
+  }) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.rightSlide,
+      headerAnimationLoop: false,
+      title: titleText,
+      desc: contentText,
+      btnOkOnPress: () {},
+      btnOkIcon: Icons.cancel,
+      btnOkColor: color,
+    ).show();
+  }
+}
+
+class CustomAuthButton extends StatelessWidget {
+  const CustomAuthButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+        height: 40,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        color: Colors.red[700],
+        textColor: Colors.white,
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Login With Google  "),
+            Image.asset(
+              "assets/images/mainlogo.png",
+              width: 20,
+            )
+          ],
+        ));
   }
 }
