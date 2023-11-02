@@ -1,9 +1,9 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../custom_button_auth.dart';
 import 'custom_another_option_text.dart';
 import 'custom_auth_button.dart';
+import 'custom_awesome_dialog.dart';
 import 'custom_login_form.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -20,22 +20,24 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomLoginForm(
-            autovalidateMode: autovalidateMode,
-            formKey: formKey,
-            email: email,
-            password: password),
-        CustomButtonAuth(
-            title: "login",
-            onPressed: () async {
-              await validateLogin(context);
-            }),
-        Container(height: 20),
-        const CustomAuthButton(),
-        const CustomAnotherOptionText()
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          CustomLoginForm(
+              autovalidateMode: autovalidateMode,
+              formKey: formKey,
+              email: email,
+              password: password),
+          CustomButtonAuth(
+              title: "login",
+              onPressed: () async {
+                await validateLogin(context);
+              }),
+          Container(height: 20),
+          const CustomAuthButton(),
+          const CustomAnotherOptionText()
+        ],
+      ),
     );
   }
 
@@ -73,24 +75,5 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     } else {
       autovalidateMode = AutovalidateMode.always;
     }
-  }
-
-  void customAwesomeDialog({
-    required BuildContext context,
-    required String titleText,
-    required String contentText,
-    required Color color,
-  }) {
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.error,
-      animType: AnimType.rightSlide,
-      headerAnimationLoop: false,
-      title: titleText,
-      desc: contentText,
-      btnOkOnPress: () {},
-      btnOkIcon: Icons.cancel,
-      btnOkColor: color,
-    ).show();
   }
 }
