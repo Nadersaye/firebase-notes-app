@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../custom_button_auth.dart';
 import '../custom_logo_auth.dart';
 import '../custom_textformfield.dart';
+import 'custom_another_option_text.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -109,22 +110,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               )),
           Container(height: 20),
           // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,)
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed("signup");
-            },
-            child: const Center(
-              child: Text.rich(TextSpan(children: [
-                TextSpan(
-                  text: "Don't Have An Account ? ",
-                ),
-                TextSpan(
-                    text: "Register",
-                    style: TextStyle(
-                        color: Colors.orange, fontWeight: FontWeight.bold)),
-              ])),
-            ),
-          )
+          const CustomAnotherOptionText()
         ]),
       ),
     );
