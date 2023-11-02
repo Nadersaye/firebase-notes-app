@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_training/features/auth/presentation/views/login_view.dart';
-import 'package:firebase_training/features/auth/presentation/views/otp_email.dart';
 import 'package:firebase_training/features/home/presentation/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,9 +49,6 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         "signup": (context) => const RegisterView(),
         "login": (context) => const LoginView(),
         "homepage": (context) => const HomeView(),
-        "otpscreen": (context) => OtpScreen(
-              myauth: ModalRoute.of(context)!.settings.arguments as EmailOTP,
-            )
       },
     );
   }
