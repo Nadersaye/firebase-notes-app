@@ -6,8 +6,7 @@ import 'package:firebase_training/features/auth/presentation/views/otp_email.dar
 import 'package:firebase_training/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'features/auth/presentation/views/signup.dart';
+import 'features/auth/presentation/views/register_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
