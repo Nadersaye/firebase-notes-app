@@ -2,9 +2,9 @@ import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../components/custom_button_auth.dart';
-import '../components/custom_logo_auth.dart';
-import '../components/custom_textformfield.dart';
+import 'widgets/custom_button_auth.dart';
+import 'widgets/custom_logo_auth.dart';
+import 'widgets/custom_textformfield.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -113,7 +113,8 @@ class _SignUpState extends State<SignUp> {
                         email: email.text,
                         password: password.text,
                       );
-                      myauth.setConfig(
+                      Navigator.of(context).pushReplacementNamed('homePaage');
+                      /*myauth.setConfig(
                           appEmail: "contact@hdevcoder.com",
                           appName: "Email OTP",
                           userEmail: email.text,
@@ -131,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                             .showSnackBar(const SnackBar(
                           content: Text("Oops, OTP send failed"),
                         ));
-                      }
+                      }*/
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'weak-password') {
                         debugPrint('The password provided is too weak.');
