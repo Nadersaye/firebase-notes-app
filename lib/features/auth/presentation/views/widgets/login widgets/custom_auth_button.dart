@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomAuthButton extends StatelessWidget {
-  const CustomAuthButton({
+class CustomGoogleAuthButton extends StatelessWidget {
+  const CustomGoogleAuthButton({
     super.key,
   });
 
