@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'custom_another_option_text.dart';
-import 'custom_auth_button.dart';
+import 'custom_google_auth_button.dart';
 import 'custom_login_form.dart';
 
 class LoginViewBody extends StatelessWidget {
