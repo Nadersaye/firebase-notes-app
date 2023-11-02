@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../custom_button_auth.dart';
 import 'custom_another_option_text.dart';
+import 'custom_auth_button.dart';
 import 'custom_login_form.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -91,31 +92,5 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       btnOkIcon: Icons.cancel,
       btnOkColor: color,
     ).show();
-  }
-}
-
-class CustomAuthButton extends StatelessWidget {
-  const CustomAuthButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-        height: 40,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Colors.red[700],
-        textColor: Colors.white,
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Login With Google  "),
-            Image.asset(
-              "assets/images/mainlogo.png",
-              width: 20,
-            )
-          ],
-        ));
   }
 }
