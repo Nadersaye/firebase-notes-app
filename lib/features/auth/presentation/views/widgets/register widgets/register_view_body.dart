@@ -13,14 +13,17 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const CustomRegisterForm(),
-          CustomAnotherAuthOption(
-              onTap: () {},
-              authMessage: "Have An Account ? ",
-              authOptionName: "Login")
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const CustomRegisterForm(),
+            CustomAnotherAuthOption(
+                onTap: () {},
+                authMessage: "Have An Account ? ",
+                authOptionName: "Login")
+          ],
+        ),
       ),
     );
   }
