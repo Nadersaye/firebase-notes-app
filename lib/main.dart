@@ -42,9 +42,10 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FirebaseAuth.instance.currentUser == null
-          ? const LoginView()
-          : const HomeView(),
+      home: FirebaseAuth.instance.currentUser != null &&
+              FirebaseAuth.instance.currentUser!.emailVerified
+          ? const HomeView()
+          : const LoginView(),
       routes: {
         "signup": (context) => const RegisterView(),
         "login": (context) => const LoginView(),

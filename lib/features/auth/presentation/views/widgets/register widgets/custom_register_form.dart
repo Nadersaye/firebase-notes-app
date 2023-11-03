@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../custom_awesome_dialog.dart';
 import '../custom_button_auth.dart';
 import '../custom_logo_auth.dart';
 import '../custom_textformfield.dart';
@@ -118,7 +120,16 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
         email: email.text,
         password: password.text,
       );
-      Navigator.of(context).pushReplacementNamed('homePaage');
+      credential.user!.sendEmailVerification();
+      customAwesomeDialog(
+          context: context,
+          titleText: 'Warning',
+          contentText: "check your email's inbox to verify your account ",
+          color: Colors.amber,
+          dialogType: DialogType.warning);
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.of(context).pushReplacementNamed('login');
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');

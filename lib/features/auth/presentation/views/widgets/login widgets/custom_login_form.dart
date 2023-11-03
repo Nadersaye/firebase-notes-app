@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../custom_button_auth.dart';
 import '../custom_logo_auth.dart';
 import '../custom_textformfield.dart';
-import 'custom_awesome_dialog.dart';
+import '../custom_awesome_dialog.dart';
 
 class CustomLoginForm extends StatefulWidget {
   const CustomLoginForm({
@@ -96,7 +96,16 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: email.text, password: password.text);
-        Navigator.of(context).pushReplacementNamed("homepage");
+        if (credential.user!.emailVerified) {
+          Navigator.of(context).pushReplacementNamed("homepage");
+        } else {
+          customAwesomeDialog(
+              context: context,
+              titleText: 'Error',
+              contentText:
+                  'you must check your email inbox to verify your account',
+              color: Colors.red);
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           debugPrint('No user found for that email.');
