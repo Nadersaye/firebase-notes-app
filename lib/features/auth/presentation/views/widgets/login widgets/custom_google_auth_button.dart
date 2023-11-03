@@ -15,8 +15,9 @@ class CustomGoogleAuthButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Colors.red[700],
         textColor: Colors.white,
-        onPressed: () {
-          signInWithGoogle();
+        onPressed: () async {
+          await signInWithGoogle();
+          Navigator.of(context).pushReplacementNamed("homepage");
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +49,7 @@ class CustomGoogleAuthButton extends StatelessWidget {
     );
 
     // Once signed in, return the UserCredential
+
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
