@@ -50,6 +50,9 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         }),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.grey[50], color: Colors.orange)),
         home: FirebaseAuth.instance.currentUser != null &&
                 FirebaseAuth.instance.currentUser!.emailVerified
             ? const HomeView()
