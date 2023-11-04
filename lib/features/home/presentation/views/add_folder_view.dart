@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/add folder/add_folder_view_body.dart';
+
 class AddFolderView extends StatelessWidget {
   const AddFolderView({super.key});
 
@@ -10,7 +12,7 @@ class AddFolderView extends StatelessWidget {
         title: const Text('Add folder'),
         centerTitle: true,
       ),
-      body: AddFolderViewBody(),
+      body: const AddFolderViewBody(),
     );
   }
 }

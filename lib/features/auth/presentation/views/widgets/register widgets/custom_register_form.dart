@@ -2,9 +2,9 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../custom_awesome_dialog.dart';
-import '../custom_button_auth.dart';
+import '../../../../../../core/widgets/custom_button.dart';
 import '../custom_logo_auth.dart';
-import '../custom_textformfield.dart';
+import '../../../../../../core/widgets/custom_textformfield.dart';
 
 class CustomRegisterForm extends StatefulWidget {
   const CustomRegisterForm({
@@ -99,7 +99,7 @@ class _CustomRegisterFormState extends State<CustomRegisterForm> {
               ),
             ),
           ),
-          CustomButtonAuth(
+          CustomButton(
               title: "SignUp",
               onPressed: () async {
                 if (formKey.currentState!.validate()) {

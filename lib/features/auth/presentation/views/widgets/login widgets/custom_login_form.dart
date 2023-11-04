@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../manager/reset password cubit/reset_password_cubit.dart';
-import '../custom_button_auth.dart';
+import '../../../../../../core/widgets/custom_button.dart';
 import '../custom_logo_auth.dart';
-import '../custom_textformfield.dart';
+import '../../../../../../core/widgets/custom_textformfield.dart';
 import '../custom_awesome_dialog.dart';
 import 'custom_reset_password.dart';
 
@@ -79,7 +79,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               BlocProvider.of<ResetPasswordCubit>(context).resetPassword();
             },
           ),
-          CustomButtonAuth(
+          CustomButton(
               title: "login",
               onPressed: () async {
                 await validateLogin(context);

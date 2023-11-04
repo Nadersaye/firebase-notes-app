@@ -10,6 +10,11 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: customHomeAppbar(context),
       body: const HomeViewBody(),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).pushNamed("addfolder");
+          }),
     );
   }
 }
