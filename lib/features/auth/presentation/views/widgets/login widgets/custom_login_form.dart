@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../manager/reset password cubit/reset_password_cubit.dart';
 import '../custom_button_auth.dart';
 import '../custom_logo_auth.dart';
 import '../custom_textformfield.dart';
 import '../custom_awesome_dialog.dart';
+import 'custom_reset_password.dart';
 
 class CustomLoginForm extends StatefulWidget {
   const CustomLoginForm({
@@ -19,6 +22,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -69,15 +73,11 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               }
             },
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 10, bottom: 20),
-            alignment: Alignment.topRight,
-            child: const Text(
-              "Forgot Password ?",
-              style: TextStyle(
-                fontSize: 14,
-              ),
-            ),
+          CustomResetPassword(
+            onTap: () async {
+              BlocProvider.of<ResetPasswordCubit>(context).email = email.text;
+              BlocProvider.of<ResetPasswordCubit>(context).resetPassword();
+            },
           ),
           CustomButtonAuth(
               title: "login",

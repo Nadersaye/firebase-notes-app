@@ -4,6 +4,8 @@ import 'package:firebase_training/features/auth/presentation/views/login_view.da
 import 'package:firebase_training/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/auth/presentation/manager/reset password cubit/reset_password_cubit.dart';
 import 'features/auth/presentation/views/register_view.dart';
 
 void main() async {
@@ -41,16 +43,23 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FirebaseAuth.instance.currentUser != null &&
-              FirebaseAuth.instance.currentUser!.emailVerified
-          ? const HomeView()
-          : const LoginView(),
-      routes: {
-        "signup": (context) => const RegisterView(),
-        "login": (context) => const LoginView(),
-        "homepage": (context) => const HomeView(),
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) {
+          return ResetPasswordCubit();
+        }),
+      ],
+      child: MaterialApp(
+        home: FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified
+            ? const HomeView()
+            : const LoginView(),
+        routes: {
+          "signup": (context) => const RegisterView(),
+          "login": (context) => const LoginView(),
+          "homepage": (context) => const HomeView(),
+        },
+      ),
     );
   }
 }

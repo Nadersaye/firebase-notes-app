@@ -14,7 +14,8 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+lib/features/auth/presentation/views/widgets/login widgets/custom_reset_password.dart
+lib/features/auth/presentation/manager/reset password cubit/reset_password_cubit.dart
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
