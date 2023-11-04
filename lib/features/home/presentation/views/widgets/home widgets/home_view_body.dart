@@ -20,9 +20,13 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           mainAxisSpacing: 20,
           mainAxisExtent: 160),
       itemBuilder: (BuildContext context, int index) {
-        return GridViewFolderItem(
-          title: folders[index],
-        );
+        if (index < folders.length) {
+          return GridViewFolderItem(
+            title: folders[index],
+          );
+        } else {
+          return null; // or return a fallback widget if needed
+        }
       },
     );
   }

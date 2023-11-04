@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_training/features/auth/presentation/views/login_view.dart';
+import 'package:firebase_training/features/home/presentation/manager/add%20category%20cubit/add_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/views/add_folder_view.dart';
 import 'package:firebase_training/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,13 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         BlocProvider(create: (context) {
           return ResetPasswordCubit();
         }),
+        BlocProvider(create: (context) => AddCategoryCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
-            primaryColor: Colors.orange,
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.orange,
+            ),
             appBarTheme: AppBarTheme(
                 backgroundColor: Colors.grey[50],
                 titleTextStyle: const TextStyle(
@@ -64,6 +68,7 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
                 FirebaseAuth.instance.currentUser!.emailVerified
             ? const HomeView()
             : const LoginView(),
+        debugShowCheckedModeBanner: false,
         routes: {
           "signup": (context) => const RegisterView(),
           "login": (context) => const LoginView(),
