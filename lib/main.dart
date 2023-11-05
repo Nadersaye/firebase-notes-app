@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/presentation/manager/reset password cubit/reset_password_cubit.dart';
 import 'features/auth/presentation/views/register_view.dart';
+import 'features/home/presentation/manager/get category cubit/get_category_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,7 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
           return ResetPasswordCubit();
         }),
         BlocProvider(create: (context) => AddCategoryCubit()),
+        BlocProvider(create: (context) => GetCategoryCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
