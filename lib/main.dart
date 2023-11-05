@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_training/features/auth/presentation/manager/login%20google%20cubit/login_google_cubit.dart';
+import 'package:firebase_training/features/auth/presentation/manager/register%20cubit/register_cubit.dart';
 import 'package:firebase_training/features/auth/presentation/views/login_view.dart';
 import 'package:firebase_training/features/home/presentation/manager/add%20category%20cubit/add_category_cubit.dart';
+import 'package:firebase_training/features/home/presentation/manager/delete%20category%20cubit/delete_category_cubit.dart';
+import 'package:firebase_training/features/home/presentation/manager/sign%20out%20cubit/sign_out_cubit.dart';
 import 'package:firebase_training/features/home/presentation/views/add_folder_view.dart';
 import 'package:firebase_training/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -55,9 +59,14 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         BlocProvider(create: (context) => AddCategoryCubit()),
         BlocProvider(create: (context) => GetCategoryCubit()),
         BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => DeleteCategoryCubit()),
+        BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => SignOutCubit()),
+        BlocProvider(create: (context) => LoginGoogleCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
+            primaryColor: Colors.orange,
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.orange,
             ),
