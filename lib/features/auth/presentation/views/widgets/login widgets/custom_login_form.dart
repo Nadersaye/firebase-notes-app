@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_training/core/widgets/custom_toast.dart';
+import 'package:firebase_training/features/auth/presentation/manager/login%20cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../manager/reset password cubit/reset_password_cubit.dart';
@@ -25,112 +26,90 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      autovalidateMode: autovalidateMode,
-      key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(height: 50),
-          const CustomLogoAuth(),
-          Container(height: 20),
-          const Text("Login",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-          Container(height: 10),
-          const Text("Login To Continue Using The App",
-              style: TextStyle(color: Colors.grey)),
-          Container(height: 20),
-          const Text(
-            "Email",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          Container(height: 10),
-          CustomTextForm(
-            hinttext: "ُEnter Your Email",
-            mycontroller: email,
-            textFormFieldvalidator: (String? input) {
-              if (input?.isEmpty ?? true) {
-                return 'enter the email ';
-              } else {
-                return null;
-              }
-            },
-          ),
-          Container(height: 10),
-          const Text(
-            "Password",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          Container(height: 10),
-          CustomTextForm(
-            hinttext: "ُEnter Your Password",
-            mycontroller: password,
-            textFormFieldvalidator: (String? input) {
-              if (input?.isEmpty ?? true) {
-                return 'enter the password ';
-              } else {
-                return null;
-              }
-            },
-          ),
-          CustomResetPassword(
-            onTap: () async {
-              BlocProvider.of<ResetPasswordCubit>(context).email = email.text;
-              BlocProvider.of<ResetPasswordCubit>(context).resetPassword();
-            },
-          ),
-          CustomButton(
-              title: "login",
-              onPressed: () async {
-                await validateLogin(context);
-              }),
-        ],
-      ),
-    );
-  }
-
-  Future<void> validateLogin(BuildContext context) async {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: email.text, password: password.text);
-        if (credential.user!.emailVerified) {
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginFailure) {
+          customAwesomeDialog(
+              context: context,
+              titleText: 'Error',
+              contentText: state.errorMessage,
+              color: Colors.red);
+        } else if (state is LoginSuccess) {
+          customToast(message: 'login successfully ');
           Navigator.of(context).pushReplacementNamed("homepage");
-        } else {
-          customAwesomeDialog(
-              context: context,
-              titleText: 'Error',
-              contentText:
-                  'you must check your email inbox to verify your account',
-              color: Colors.red);
         }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          debugPrint('No user found for that email.');
-          customAwesomeDialog(
-              titleText: 'Error',
-              context: context,
-              contentText: 'No user found for that email.',
-              color: Colors.red);
-        } else if (e.code == 'wrong-password') {
-          debugPrint('Wrong password provided for that user.');
-          customAwesomeDialog(
-              context: context,
-              titleText: 'Wrong password',
-              contentText: 'Wrong password provided for that user.',
-              color: Colors.red);
-        } else {
-          customAwesomeDialog(
-              context: context,
-              titleText: 'Error',
-              contentText: '$e',
-              color: Colors.red);
-        }
-      }
-    } else {
-      autovalidateMode = AutovalidateMode.always;
-    }
+      },
+      builder: (context, state) {
+        return Form(
+          autovalidateMode: autovalidateMode,
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(height: 50),
+              const CustomLogoAuth(),
+              Container(height: 20),
+              const Text("Login",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              Container(height: 10),
+              const Text("Login To Continue Using The App",
+                  style: TextStyle(color: Colors.grey)),
+              Container(height: 20),
+              const Text(
+                "Email",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              Container(height: 10),
+              CustomTextForm(
+                hinttext: "ُEnter Your Email",
+                mycontroller: email,
+                textFormFieldvalidator: (String? input) {
+                  if (input?.isEmpty ?? true) {
+                    return 'enter the email ';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              Container(height: 10),
+              const Text(
+                "Password",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              Container(height: 10),
+              CustomTextForm(
+                hinttext: "ُEnter Your Password",
+                mycontroller: password,
+                textFormFieldvalidator: (String? input) {
+                  if (input?.isEmpty ?? true) {
+                    return 'enter the password ';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              CustomResetPassword(
+                onTap: () async {
+                  BlocProvider.of<ResetPasswordCubit>(context).email =
+                      email.text;
+                  BlocProvider.of<ResetPasswordCubit>(context).resetPassword();
+                },
+              ),
+              CustomButton(
+                  title: "login",
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      BlocProvider.of<LoginCubit>(context)
+                          .validateLogin(email, password);
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  }),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
