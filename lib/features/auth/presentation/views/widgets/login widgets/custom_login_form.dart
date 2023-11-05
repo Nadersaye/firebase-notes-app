@@ -6,7 +6,7 @@ import '../../../manager/reset password cubit/reset_password_cubit.dart';
 import '../../../../../../core/widgets/custom_button.dart';
 import '../custom_logo_auth.dart';
 import '../../../../../../core/widgets/custom_textformfield.dart';
-import '../custom_awesome_dialog.dart';
+import '../../../../../../core/widgets/custom_awesome_dialog.dart';
 import 'custom_reset_password.dart';
 
 class CustomLoginForm extends StatefulWidget {

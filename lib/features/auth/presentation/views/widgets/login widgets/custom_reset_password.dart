@@ -1,5 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_training/features/auth/presentation/views/widgets/custom_awesome_dialog.dart';
+import 'package:firebase_training/core/widgets/custom_awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../manager/reset password cubit/reset_password_cubit.dart';

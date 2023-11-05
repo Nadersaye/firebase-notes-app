@@ -1,5 +1,5 @@
 import 'package:firebase_training/core/widgets/custom_button.dart';
-import 'package:firebase_training/features/auth/presentation/views/widgets/custom_awesome_dialog.dart';
+import 'package:firebase_training/core/widgets/custom_awesome_dialog.dart';
 import 'package:firebase_training/features/home/presentation/manager/add%20category%20cubit/add_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
