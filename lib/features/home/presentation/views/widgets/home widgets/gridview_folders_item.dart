@@ -6,14 +6,17 @@ class GridViewFolderItem extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(
-          folderLogo,
-          height: 100,
-        ),
-        Text(title)
-      ],
+    return Card(
+      elevation: 3,
+      child: Column(
+        children: [
+          Image.asset(
+            folderLogo,
+            height: 100,
+          ),
+          Text(title)
+        ],
+      ),
     );
   }
 }
