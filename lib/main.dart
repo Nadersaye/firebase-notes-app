@@ -7,6 +7,7 @@ import 'package:firebase_training/features/home/presentation/views/home_view.dar
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/auth/presentation/manager/login cubit/login_cubit.dart';
 import 'features/auth/presentation/manager/reset password cubit/reset_password_cubit.dart';
 import 'features/auth/presentation/views/register_view.dart';
 import 'features/home/presentation/manager/get category cubit/get_category_cubit.dart';
@@ -53,6 +54,7 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         }),
         BlocProvider(create: (context) => AddCategoryCubit()),
         BlocProvider(create: (context) => GetCategoryCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
