@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../manager/reset password cubit/reset_password_cubit.dart';
 import 'custom_another_option_text.dart';
 import 'custom_google_auth_button.dart';
 import 'custom_login_form.dart';
