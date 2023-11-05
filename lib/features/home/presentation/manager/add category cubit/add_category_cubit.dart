@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_training/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,8 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     // Call the user's CollectionReference to add a new user
     try {
       emit(AddCategoryLoading());
-      DocumentReference response = await categories.add({"name": folder.text});
+      DocumentReference response = await categories.add(
+          {"name": folder.text, "id": FirebaseAuth.instance.currentUser!.uid});
       emit(AddCategorySuccess(
           successMessage: 'Adding successfully category : $response'));
     } catch (e) {
