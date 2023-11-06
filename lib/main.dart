@@ -6,8 +6,11 @@ import 'package:firebase_training/features/auth/presentation/views/login_view.da
 import 'package:firebase_training/features/home/presentation/manager/add%20category%20cubit/add_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/manager/delete%20category%20cubit/delete_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/manager/sign%20out%20cubit/sign_out_cubit.dart';
+import 'package:firebase_training/features/home/presentation/manager/update%20category%20cubit/update_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/views/add_folder_view.dart';
 import 'package:firebase_training/features/home/presentation/views/home_view.dart';
+import 'package:firebase_training/features/home/presentation/views/update_category_view.dart';
+import 'package:firebase_training/features/note/presentation/views/note_view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +18,12 @@ import 'features/auth/presentation/manager/login cubit/login_cubit.dart';
 import 'features/auth/presentation/manager/reset password cubit/reset_password_cubit.dart';
 import 'features/auth/presentation/views/register_view.dart';
 import 'features/home/presentation/manager/get category cubit/get_category_cubit.dart';
+import 'features/note/presentation/manager/add note cubit/add_note_cubit.dart';
+import 'features/note/presentation/manager/delete note/delete_note_cubit.dart';
+import 'features/note/presentation/manager/get note cubit/get_note_cubit.dart';
+import 'features/note/presentation/manager/update note cubit/update_note_cubit.dart';
+import 'features/note/presentation/views/add_note_view.dart';
+import 'features/note/presentation/views/update_note_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,6 +72,11 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => SignOutCubit()),
         BlocProvider(create: (context) => LoginGoogleCubit()),
+        BlocProvider(create: (context) => UpdateCategoryCubit()),
+        BlocProvider(create: (context) => AddNoteCubit()),
+        BlocProvider(create: (context) => GetNoteCubit()),
+        BlocProvider(create: (context) => DeleteNoteCubit()),
+        BlocProvider(create: (context) => UpdateNoteCubit()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -87,6 +101,10 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
           "login": (context) => const LoginView(),
           "homepage": (context) => const HomeView(),
           "addfolder": (context) => const AddFolderView(),
+          "updateCategory": (context) => const UpdateCategoryView(),
+          "note": (context) => const NoteView(),
+          "addNote": (context) => const AddNoteView(),
+          "updateNote": (context) => const UpdateNoteView()
         },
       ),
     );
