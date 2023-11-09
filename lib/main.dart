@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_training/features/auth/presentation/manager/login%20google%20cubit/login_google_cubit.dart';
 import 'package:firebase_training/features/auth/presentation/manager/register%20cubit/register_cubit.dart';
 import 'package:firebase_training/features/auth/presentation/views/login_view.dart';
+import 'package:firebase_training/features/filter/presentation/manager/test%20cubit/test_cubit.dart';
 import 'package:firebase_training/features/home/presentation/manager/add%20category%20cubit/add_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/manager/delete%20category%20cubit/delete_category_cubit.dart';
 import 'package:firebase_training/features/home/presentation/manager/sign%20out%20cubit/sign_out_cubit.dart';
@@ -77,6 +78,7 @@ class _FirebaseTrainingState extends State<FirebaseTraining> {
         BlocProvider(create: (context) => GetNoteCubit()),
         BlocProvider(create: (context) => DeleteNoteCubit()),
         BlocProvider(create: (context) => UpdateNoteCubit()),
+        BlocProvider(create: (context) => TestCubit())
       ],
       child: MaterialApp(
         theme: ThemeData(
