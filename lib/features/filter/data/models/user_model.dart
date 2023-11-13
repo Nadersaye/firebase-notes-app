@@ -20,8 +20,7 @@ class UserModel {
       money: json['money'],
       documentId: json['documentId']);
 
-  Map<String, dynamic> toJson() =>
-      {'documentId': documentId, 'name': name, 'age': age, 'money': money};
+  Map<String, dynamic> toJson() => {'name': name, 'age': age, 'money': money};
 
   factory UserModel.fromSnapShot(
       DocumentSnapshot<Map<String, dynamic>> document) {
