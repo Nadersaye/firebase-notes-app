@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_training/core/widgets/custom_awesome_dialog.dart';
 import 'package:firebase_training/core/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,6 @@ class DeleteNoteItem extends StatelessWidget {
                     if (index <
                         BlocProvider.of<GetNoteCubit>(context).notes.length) {
                       return GridViewNoteItem(
-                        title: BlocProvider.of<GetNoteCubit>(context)
-                            .notes[index]['note'],
                         onLongPress: () {
                           customAwesomeDialog(
                               context: context,
@@ -105,22 +104,34 @@ class DeleteNoteItem extends StatelessWidget {
                                 BlocProvider.of<UpdateNoteCubit>(context)
                                         .oldNote =
                                     BlocProvider.of<GetNoteCubit>(context)
-                                        .notes[index]['note'];
+                                        .notes[index]
+                                        .note;
                                 Navigator.of(context)
                                     .pushReplacementNamed("updateNote");
                               },
                               btnCancelOnPress: () {
+                                if (BlocProvider.of<GetNoteCubit>(context)
+                                        .notes[index]
+                                        .imageUrl !=
+                                    "") {
+                                  FirebaseStorage.instance.refFromURL(
+                                      BlocProvider.of<GetNoteCubit>(context)
+                                          .notes[index]
+                                          .imageUrl);
+                                }
                                 BlocProvider.of<DeleteNoteCubit>(context)
                                     .deleteNote(
                                         BlocProvider.of<GetNoteCubit>(context)
                                             .mainPath,
                                         BlocProvider.of<GetNoteCubit>(context)
                                             .notes[index]
-                                            .id);
+                                            .id!);
                                 BlocProvider.of<GetNoteCubit>(context)
                                     .getNote();
                               });
                         },
+                        note:
+                            BlocProvider.of<GetNoteCubit>(context).notes[index],
                       );
                     } else {
                       return null; // or return a fallback widget if needed
