@@ -13,8 +13,10 @@ class TestCubit extends Cubit<TestState> {
         FirebaseFirestore.instance.collection('users');
     try {
       emit(TestLoading());
-      var response =
-          await collection.where('age', isGreaterThanOrEqualTo: 22).get();
+      var response = await collection
+          .orderBy('age', descending: false)
+          .limit(3)
+          .startAfter([22]).get();
       List<UserModel> usersData = response.docs
           .map((element) => UserModel.fromSnapShot(
                   element as DocumentSnapshot<Map<String, dynamic>>)
