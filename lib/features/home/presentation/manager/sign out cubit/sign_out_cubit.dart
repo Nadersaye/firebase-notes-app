@@ -12,11 +12,14 @@ class SignOutCubit extends Cubit<SignOutState> {
   signOut() async {
     try {
       emit(SignOutLoading());
-      if (googleLogin == true) {
+      /*if (googleLogin == true) {
         GoogleSignIn googleSignIn = GoogleSignIn();
         await googleSignIn.disconnect();
-      }
+      }*/
+      GoogleSignIn googleSignIn = GoogleSignIn();
       await FirebaseAuth.instance.signOut();
+
+      //await googleSignIn.disconnect();
       emit(SignOutSuccess());
     } catch (e) {
       emit(SignOutFailure(errorMessage: e.toString()));
