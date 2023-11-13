@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
@@ -11,26 +12,31 @@ class LoginGoogleCubit extends Cubit<LoginGoogleState> {
   Future signInWithGoogle() async {
     try {
       emit(LoginGoogleLoading());
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.disconnect();
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      if (googleUser == null) {
-        emit(LoginGoogleFailure(errorMessage: 'uncomplement login, try again'));
-        return;
-      }
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      if (googleUser != null) {
+        try {
+          final GoogleSignInAuthentication googleAuth =
+              await googleUser.authentication;
 
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      // Once signed in, return the UserCredential
-      emit(LoginGoogleSuccess());
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+          // Create a new credential
+          AuthCredential credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          emit(LoginGoogleSuccess());
+          // Once signed in, return the UserCredential
+          UserCredential userCredential =
+              await FirebaseAuth.instance.signInWithCredential(credential);
+          User user = userCredential.user!;
+          debugPrint(user.email);
+        } catch (e) {
+          emit(LoginGoogleFailure(errorMessage: e.toString()));
+        }
+      }
     } catch (e) {
       emit(LoginGoogleFailure(errorMessage: e.toString()));
     }
