@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../note/presentation/manager/add note cubit/add_note_cubit.dart';
+import '../../../manager/message cubit/message_cubit.dart';
 import 'gridview_folders_item.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -57,6 +58,12 @@ class DeleteCategoryItem extends StatelessWidget {
     required this.state,
   });
   final GetCategoryState state;
+
+  void sendMessageAndReceiveNotification(BuildContext context) async {
+    //receiveMessage();
+    await BlocProvider.of<MessageCubit>(context).sendMessage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DeleteCategoryCubit, DeleteCategoryState>(
@@ -95,88 +102,93 @@ class DeleteCategoryItem extends StatelessWidget {
                   )
                 : Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: GridView.builder(
-                      itemCount: BlocProvider.of<GetCategoryCubit>(context)
-                          .categories
-                          .length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                              mainAxisExtent: 160),
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index <
-                            BlocProvider.of<GetCategoryCubit>(context)
-                                .categories
-                                .length) {
-                          return GridViewFolderItem(
-                            title: BlocProvider.of<GetCategoryCubit>(context)
-                                .categories[index]['name'],
-                            onTap: () {
-                              BlocProvider.of<GetNoteCubit>(context).mainPath =
-                                  BlocProvider.of<GetCategoryCubit>(context)
-                                      .categories[index]
-                                      .id;
-                              BlocProvider.of<AddNoteCubit>(context).mainPath =
-                                  BlocProvider.of<GetCategoryCubit>(context)
-                                      .categories[index]
-                                      .id;
-                              BlocProvider.of<UpdateNoteCubit>(context)
-                                      .mainPath =
-                                  BlocProvider.of<GetCategoryCubit>(context)
-                                      .categories[index]
-                                      .id;
-                              Navigator.of(context).pushNamed('note');
+                    child: Column(
+                      children: [
+                        const Expanded(
+                          child: CustomGridViewContent(),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              sendMessageAndReceiveNotification(context);
                             },
-                            onLongPress: () {
-                              customAwesomeDialog(
-                                  context: context,
-                                  titleText: 'question',
-                                  contentText:
-                                      'Are you want to delete or update it?',
-                                  dialogType: DialogType.question,
-                                  color: Colors.amber,
-                                  cancelText: 'Delete',
-                                  okText: 'Update',
-                                  btnOkOnPress: () {
-                                    BlocProvider.of<UpdateCategoryCubit>(
-                                                context)
-                                            .path =
-                                        BlocProvider.of<GetCategoryCubit>(
-                                                context)
-                                            .categories[index]
-                                            .id;
-                                    BlocProvider.of<UpdateCategoryCubit>(
-                                                context)
-                                            .oldName =
-                                        BlocProvider.of<GetCategoryCubit>(
-                                                context)
-                                            .categories[index]['name'];
-                                    Navigator.of(context)
-                                        .pushReplacementNamed("updateCategory");
-                                  },
-                                  btnCancelOnPress: () {
-                                    BlocProvider.of<DeleteCategoryCubit>(
-                                            context)
-                                        .deleteCategory(
-                                            BlocProvider.of<GetCategoryCubit>(
-                                                    context)
-                                                .categories[index]
-                                                .id);
-                                    BlocProvider.of<GetCategoryCubit>(context)
-                                        .getCategory();
-                                  });
-                            },
-                          );
-                        } else {
-                          return null; // or return a fallback widget if needed
-                        }
-                      },
-                    ),
-                  );
+                            child: const Text('send notification'))
+                      ],
+                    ));
           },
         );
+      },
+    );
+  }
+}
+
+class CustomGridViewContent extends StatelessWidget {
+  const CustomGridViewContent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: BlocProvider.of<GetCategoryCubit>(context).categories.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+          mainAxisExtent: 160),
+      itemBuilder: (BuildContext context, int index) {
+        if (index <
+            BlocProvider.of<GetCategoryCubit>(context).categories.length) {
+          return GridViewFolderItem(
+            title: BlocProvider.of<GetCategoryCubit>(context).categories[index]
+                ['name'],
+            onTap: () {
+              BlocProvider.of<GetNoteCubit>(context).mainPath =
+                  BlocProvider.of<GetCategoryCubit>(context)
+                      .categories[index]
+                      .id;
+              BlocProvider.of<AddNoteCubit>(context).mainPath =
+                  BlocProvider.of<GetCategoryCubit>(context)
+                      .categories[index]
+                      .id;
+              BlocProvider.of<UpdateNoteCubit>(context).mainPath =
+                  BlocProvider.of<GetCategoryCubit>(context)
+                      .categories[index]
+                      .id;
+              Navigator.of(context).pushNamed('note');
+            },
+            onLongPress: () {
+              customAwesomeDialog(
+                  context: context,
+                  titleText: 'question',
+                  contentText: 'Are you want to delete or update it?',
+                  dialogType: DialogType.question,
+                  color: Colors.amber,
+                  cancelText: 'Delete',
+                  okText: 'Update',
+                  btnOkOnPress: () {
+                    BlocProvider.of<UpdateCategoryCubit>(context).path =
+                        BlocProvider.of<GetCategoryCubit>(context)
+                            .categories[index]
+                            .id;
+                    BlocProvider.of<UpdateCategoryCubit>(context).oldName =
+                        BlocProvider.of<GetCategoryCubit>(context)
+                            .categories[index]['name'];
+                    Navigator.of(context)
+                        .pushReplacementNamed("updateCategory");
+                  },
+                  btnCancelOnPress: () {
+                    BlocProvider.of<DeleteCategoryCubit>(context)
+                        .deleteCategory(
+                            BlocProvider.of<GetCategoryCubit>(context)
+                                .categories[index]
+                                .id);
+                    BlocProvider.of<GetCategoryCubit>(context).getCategory();
+                  });
+            },
+          );
+        } else {
+          return null; // or return a fallback widget if needed
+        }
       },
     );
   }
