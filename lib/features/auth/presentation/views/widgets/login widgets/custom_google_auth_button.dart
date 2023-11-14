@@ -18,10 +18,7 @@ class CustomGoogleAuthButton extends StatelessWidget {
           googleLogin = true;
           Navigator.of(context).pushReplacementNamed("homepage");
         } else if (state is LoginGoogleFailure) {
-          //customToast(message: state.errorMessage, backgroundColor: Colors.red);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
+          customToast(message: state.errorMessage, backgroundColor: Colors.red);
         }
       },
       builder: (context, state) {
